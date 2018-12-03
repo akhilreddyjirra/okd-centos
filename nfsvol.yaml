@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+  - ReadWriteOnce
+  - ReadWriteMany
+  nfs:
+    path: /var/emri
+    server: 192.168.101.100
+  persistentVolumeReclaimPolicy: Retain
