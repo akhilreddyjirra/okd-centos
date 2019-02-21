@@ -5,6 +5,12 @@
 
         for i in `seq -f "%04g" 1 20`;
         do
+        	do
+		DIRNAME="pv$i"
+		mkdir -p /mnt/data/$DIRNAME 
+		chcon -Rt svirt_sandbox_file_t /mnt/data/$DIRNAME
+		chmod 777 /mnt/data/$DIRNAME
+                
                 sed "s/name: pv/name: pv$i/g" vol.yaml > oc_vol.yaml
                 oc create -f oc_vol.yaml
                 echo "created pv$i"
