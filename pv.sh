@@ -11,7 +11,8 @@
 		chcon -Rt svirt_sandbox_file_t /mnt/data/$DIRNAME
 		chmod 777 /mnt/data/$DIRNAME
                 
-                sed "s/name: pv/name: pv$i/g" vol.yaml > oc_vol.yaml
+                #sed "s/name: pv/name: pv$i/g" vol.yaml > oc_vol.yaml
+		sed "s/pv/pv$i/g" vol.yaml > oc_vol.yaml
                 oc create -f oc_vol.yaml
                 echo "created pv$i"
         done
