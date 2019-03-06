@@ -5,7 +5,7 @@
 
         for i in `seq -f "%04g" 1 20`;
         do
-        	do
+
 		DIRNAME="pv$i"
 		mkdir -p /mnt/data/$DIRNAME 
 		chcon -Rt svirt_sandbox_file_t /mnt/data/$DIRNAME
