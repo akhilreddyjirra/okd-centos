@@ -162,21 +162,22 @@ oc adm policy add-cluster-role-to-user cluster-admin ${USERNAME}
 
 if [ "$PVS" = "true" ]; then
 
-	curl -o vol.yaml $SCRIPT_REPO/vol.yaml
+#	curl -o vol.yaml $SCRIPT_REPO/vol.yaml
 
-	for i in `seq 1 10`;
-	do
-		DIRNAME="vol$i"
+        for i in `seq -f "%04g" 1 20`;
+        do
+
+		DIRNAME="pv$i"
 		mkdir -p /mnt/data/$DIRNAME 
 		chcon -Rt svirt_sandbox_file_t /mnt/data/$DIRNAME
 		chmod 777 /mnt/data/$DIRNAME
-		
-		sed "s/name: vol/name: vol$i/g" vol.yaml > oc_vol.yaml
-		sed -i "s/path: \/mnt\/data\/vol/path: \/mnt\/data\/vol$i/g" oc_vol.yaml
-		oc create -f oc_vol.yaml
-		echo "created volume $i"
-	done
-	rm oc_vol.yaml
+                
+                #sed "s/name: pv/name: pv$i/g" vol.yaml > oc_vol.yaml
+		sed "s/pv/pv$i/g" vol.yaml > oc_vol.yaml
+                oc create -f oc_vol.yaml
+                echo "created pv$i"
+        done
+        rm oc_vol.yaml
 fi
 
 echo "******"
